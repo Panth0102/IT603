@@ -1,0 +1,4 @@
+Name: Panth
+Id: 202612029
+Department: MSC-IT
+Favourite Langauge: Python, Java
