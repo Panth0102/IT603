@@ -15,6 +15,39 @@ class Node{
             right = NULL;
         }
 
+        void insert(Node*& root, int val) {
+            Node* newNode = new Node(val);
+        
+            if (root == nullptr) {
+                root = newNode;
+                return;
+            }
+        
+            queue<Node*> q;
+            q.push(root);
+        
+            while (!q.empty()) {
+                Node* temp = q.front();
+                q.pop();
+        
+                if (temp->left == nullptr) {
+                    temp->left = newNode;
+                    return;
+                }
+                else {
+                    q.push(temp->left);
+                }
+        
+                if (temp->right == nullptr) {
+                    temp->right = newNode;
+                    return;
+                }
+                else {
+                    q.push(temp->right);
+                }
+            }
+        }
+
         vector<int> inorderTraversal(Node *root, vector<int>& ans){
             if(root == NULL) return ans;
 
@@ -87,13 +120,14 @@ class Node{
 
 
 int main(){
-    Node* root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    Node* root = NULL;
+    root->insert(root, 1);
+    root->insert(root, 2);
+    root->insert(root, 3);
+    root->insert(root, 4);
+    root->insert(root, 5);
+    root->insert(root, 6);
+    root->insert(root, 7);
 
     vector<int> ans;
     cout << "DFS" << endl;
