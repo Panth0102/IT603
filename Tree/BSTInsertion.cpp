@@ -26,18 +26,13 @@ TreeNode *createnode(TreeNode *root, int val){
 }
 
 void display(TreeNode* root) {
-    if (root == nullptr)
-        return;
-
+    if (root == nullptr) return;
     queue<TreeNode*> q;
     q.push(root);
-
     vector<string> result;
-
     while (!q.empty()) {
         TreeNode* curr = q.front();
         q.pop();
-
         if (curr == nullptr) {
             result.push_back("null");
         }
@@ -96,11 +91,7 @@ int main(){
         string x;
         cin >> x;
     
-        if(x == "null") continue;
-        else{
-            int val = stoi(x);
-            root = createnode(root, val);
-        }
+        if(x != "null") root = createnode(root, stoi(x));
     }
 
     cout << "Level-order Traversal of the BST: ";

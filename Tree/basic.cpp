@@ -17,15 +17,12 @@ class Node{
 
         void insert(Node*& root, int val) {
             Node* newNode = new Node(val);
-        
             if (root == nullptr) {
                 root = newNode;
                 return;
             }
-        
             queue<Node*> q;
             q.push(root);
-        
             while (!q.empty()) {
                 Node* temp = q.front();
                 q.pop();
@@ -46,6 +43,39 @@ class Node{
                     q.push(temp->right);
                 }
             }
+        }
+
+        Node* buildTree(vector<string>& arr) {
+            if(arr.empty() || arr[0] == "null")
+                return nullptr;
+        
+            Node* root = new Node(stoi(arr[0]));
+            queue<Node*> q;
+            q.push(root);
+        
+            int i = 1;
+        
+            while(!q.empty() && i < arr.size()) {
+        
+                Node* curr = q.front();
+                q.pop();
+        
+                // Left child
+                if(i < arr.size() && arr[i] != "null") {
+                    curr->left = new Node(stoi(arr[i]));
+                    q.push(curr->left);
+                }
+                i++;
+        
+                // Right child
+                if(i < arr.size() && arr[i] != "null") {
+                    curr->right = new Node(stoi(arr[i]));
+                    q.push(curr->right);
+                }
+                i++;
+            }
+        
+            return root;
         }
 
         vector<int> inorderTraversal(Node *root, vector<int>& ans){
@@ -121,35 +151,37 @@ class Node{
 
 int main(){
     Node* root = NULL;
-    root->insert(root, 1);
-    root->insert(root, 2);
-    root->insert(root, 3);
-    root->insert(root, 4);
-    root->insert(root, 5);
-    root->insert(root, 6);
-    root->insert(root, 7);
+    Node obj(0);
+
+    obj.insert(root, 1);
+    obj.insert(root, 2);
+    obj.insert(root, 3);
+    obj.insert(root, 4);
+    obj.insert(root, 5);
+    obj.insert(root, 6);
+    obj.insert(root, 7);
 
     vector<int> ans;
     cout << "DFS" << endl;
     cout << "Inorder: ";
-    root->display(root->inorderTraversal(root, ans));
+    obj.display(obj.inorderTraversal(root, ans));
     ans.clear();
     
     cout << "Preorder: ";
-    root->display(root->preOrderTraversal(root, ans));
+    obj.display(obj.preOrderTraversal(root, ans));
     ans.clear();
     
     cout << "Postorder: ";
-    root->display(root->postOrderTraversal(root, ans));
+    obj.display(obj.postOrderTraversal(root, ans));
     ans.clear();
 
-    cout << "Count of Nodes: " << root->countNodes(root) << endl;
-    cout << "Height of Tree: " << root->height(root) << endl;
+    cout << "Count of Nodes: " << obj.countNodes(root) << endl;
+    cout << "Height of Tree: " << obj.height(root) << endl;
 
-    cout << "Element 2: " << (root->search(root, 2)?"Found": "Not Found") << endl;
+    cout << "Element 2: " << (obj.search(root, 2)?"Found": "Not Found") << endl;
 
     cout << "BFS: ";
-    root->display(root->BFS(root));
+    obj.display(obj.BFS(root));
 
     cout << endl;
     return 0;
